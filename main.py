@@ -13,7 +13,10 @@ def main():
     for fig in jpitti_figs:
         fig.show()
 
-
+    anranyao_figs = anranyao_eda.run_eda_analysis()
+    for fig in anranyao_figs:
+        fig.show()
+    
     return
     
 
