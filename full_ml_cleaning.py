@@ -4,6 +4,7 @@ import numpy as np
 # individual data cleaning modules
 import beprado_ml_cleaning
 import jpitti_ml_cleaning
+import ccrand_ml_cleaning
 
 
 def run_full_ml_cleaning():
@@ -20,5 +21,10 @@ def run_full_ml_cleaning():
     print("\nRunning jpitti_ml_cleaning...")
     df = jpitti_ml_cleaning.run_ml_cleaning(df)
     print("Done with jpitti_ml_cleaning!\n")
+    print("\nRunning ccrand_ml_cleaning...")
+    df = ccrand_ml_cleaning.run_ml_cleaning(df)
+    print("Done with ccrand_ml_cleaning!\n")
 
     return df
+
+run_full_ml_cleaning()
