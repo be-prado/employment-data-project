@@ -82,7 +82,7 @@ def jp_figs():
                             category_orders={'outlook_year': ['gas_1yr', 'gas_5yr']},
                             labels={"veh_att": "Vehicle Buying Attitude 1-Year Outlook", "expectation":"Expectation"})
     fig3 = px.parallel_categories(d_list[0], dimensions=['veh_att', "gas_1yr", "gas_5yr"], labels={"veh_att": "Vehicle Buying Attitude 1-Year Outlook", "gas_1yr":"Gas Price 1-Year Outlook", "gas_5yr":"Gas Price 5-Year Outlook"})
-    fig4 = px.box(fter, x = "gov", y = "INVAMT", labels={'gov':"Opinion of Government Economic Policy", 'INVAMT':"Total Value of Investments ($)"})
+    fig4 = px.box(d_list[0], x = "gov", y = "INVAMT", labels={'gov':"Opinion of Government Economic Policy", 'INVAMT':"Total Value of Investments ($)"})
 
     fig_list = [fig1, fig2, fig3, fig4]
     return fig_list
