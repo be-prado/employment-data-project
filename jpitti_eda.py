@@ -1,7 +1,5 @@
 def data_cleaning():
-    import csv
     import pandas as pd
-    import numpy as np
     import plotly.express as px
     df = pd.read_csv("./unprocessed_dataset.zip")
 
@@ -73,9 +71,7 @@ def data_cleaning():
 
 
 def jp_figs():
-    import csv
     import pandas as pd
-    import numpy as np
     import plotly.express as px
     d_list = data_cleaning()
     fig1 = px.density_heatmap(d_list[1], x = "recode_pol", y = "expectation", facet_col='outlook_year',
