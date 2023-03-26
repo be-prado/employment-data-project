@@ -1,5 +1,6 @@
 def data_cleaning():
     import pandas as pd
+    import numpy as np
     import plotly.express as px
     df = pd.read_csv("./unprocessed_dataset.zip")
 
