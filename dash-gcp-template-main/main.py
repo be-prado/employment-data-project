@@ -4,15 +4,19 @@ import dash
 from dash import html, Dash, dcc, Input, Output
 import jpitti_eda
 import anranyao_eda
+import beprado_eda
 
 #calls to bring in graphs
 jpitti_figs = jpitti_eda.jp_figs()
 anranyao_figs = anranyao_eda.run_eda_analysis()
+beprado_figs = beprado_eda.run_eda_analysis()
 #initializing dashboard
 app = dash.Dash(__name__)
 server = app.server
 
-#starting layout
+# starting layout
+
+# +
 
 app.layout = html.Div([
     html.H1("Predicting Income Based on Variables from the UM Consumer Survey"),
@@ -62,7 +66,6 @@ app.layout = html.Div([
 
     html.P('''Although the data has many outliers, those that have a positive opinion of government economic policy tend to have a higher investment value.'''),
 
-    html.H4('''INSERT OTHER EDA HERE'''),
 
     dcc.Graph(
         id = 'anran_fig0',
@@ -79,6 +82,46 @@ app.layout = html.Div([
         figure = anranyao_figs[2]
     ),
     #####
+
+    ####################################################
+    # BERNARDO
+    ####################################################
+
+    # income correlation matrix
+    html.H4("Does current economic status correlate with future economic expectation?"),
+
+    html.P("In the graph below, the variable PAGO corresponds to personal finances a year before the survey, PEXP corresponds to the expected personal finances a year after the survey, BAGO corresponds to whether the economy was better or worse a year before the survey, and INEXQ1 corresponds to whether the family income is expected to be larger the following year."),
+    dcc.Graph(
+        id = 'beprado_fig0',
+        figure = beprado_figs[0]
+    ),
+    html.P("We see that, perhaps surprisingly these variables have a low correlation."),
+
+    # average home-buying attitude per region
+    html.H4("How does home and car buying attitudes change between US regions?"),
+
+    html.P("Below, we see the average home and car buying attitude scores for different US regions. Here, 1 corresponds to West, 2 corresponds to North Central, 3 corresponds to Northeast, 4  corresponds to South, and 6 corresponds to N/A. For the home buying attitude score, 1 corresponds to Good, 3 corresponds to Pro-con, and 5 corresponds to Bad."),
+    dcc.Graph(
+        id = 'beprado_fig1',
+        figure = beprado_figs[1]
+    ),
+    html.P("We see that all US regions are pretty homogenous in terms of buying attitude and that car buying attitudes are consistently more optimistic than home buying attitudes."),
+
+    # economic status and political opinions
+    html.H4("Does economic status relate to political perceptions?"),
+
+    html.P("Below we see a correlation table where YTL5 corresponds to income quintile, HTL5 corresponds to home value quintile, STL5 corresponds to stock investment quintile, POLAFF corresponds to political affiliation, BUS5 corresponds to whether the economy will be good or bad in the 5 years after the survey, and GOVT correponds to perception of government economic policy."),
+    dcc.Graph(
+        id = 'beprado_fig2',
+        figure = beprado_figs[2]
+    ),
+    html.P("We see that the most correlated variable pairs are income quintile with home value quintile, income quintile with stock investment quintile, and economy prediction with perception of economic policy."),
+
+    ##############################################################################
+    ####### BERNARDO DONE
+    ##############################################################################
+
+    html.H4('''INSERT OTHER EDA HERE'''),
 
     html.H2("Predictive Analytics"),
 
@@ -105,8 +148,12 @@ app.layout = html.Div([
     html.H4("Predictions with Final Model"),
 
     html.P('''INSERT TEXT HERE''')
+    
+    ])
 
-])
+# -
 
 if __name__ == '__main__':
     app.run_server(debug=True, port=8080)
+
+
