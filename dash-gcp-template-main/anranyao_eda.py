@@ -74,7 +74,7 @@ def run_eda_analysis():
     df3_nan= df3.replace([8,9,None], np.nan)
     df3_full=df3_nan.dropna()
 
-    fig3 = px.histogram(df3_full, x='AGE', color='political',text_auto=True)
+    fig3 = px.histogram(df3_full, x='AGE', color='political')
     fig3.update_layout(title_text='Political Affiliation by Education Level') #, xaxis_tickangle=-45
 
     return list(fig1,fig2,fig3)
