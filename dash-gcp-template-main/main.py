@@ -59,7 +59,38 @@ app.layout = html.Div([
         figure = jpitti_figs[3]
     ),
 
-    html.P('''Although the data has many outliers, those that have a positive opinion of government economic policy tend to have a higher investment value.''')
+    html.P('''Although the data has many outliers, those that have a positive opinion of government economic policy tend to have a higher investment value.'''),
+
+    html.H4('''INSERT OTHER EDA HERE'''),
+
+    #####
+
+    html.H2("Predictive Analytics"),
+
+    html.H4("Research Question"),
+
+    html.P("How accurately can we predict income based on other variables found in the survey dataset?"),
+
+    html.H4("Feature Selection"),
+
+    html.P('''INSERT TEXT HERE'''),
+
+    html.H4("Data Cleaning"),
+
+    html.P('''INSERT TEXT HERE'''),
+
+    html.H4("Fitting Machine Learning Models"),
+
+    html.P('''INSERT TEXT HERE'''),
+
+    html.H4("Model Evaluation and Selection"),
+
+    html.P('''INSERT TEXT HERE'''),
+
+    html.H4("Predictions with Final Model"),
+
+    html.P('''INSERT TEXT HERE''')
+
 ])
 
 if __name__ == '__main__':
