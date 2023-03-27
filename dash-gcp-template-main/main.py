@@ -3,10 +3,11 @@
 import dash
 from dash import html, Dash, dcc, Input, Output
 import jpitti_eda
+import anranyao_eda
 
 #calls to bring in graphs
 jpitti_figs = jpitti_eda.jp_figs()
-
+anranyao_figs = anranyao_eda.run_eda_analysis()
 #initializing dashboard
 app = dash.Dash(__name__)
 server = app.server
@@ -63,6 +64,20 @@ app.layout = html.Div([
 
     html.H4('''INSERT OTHER EDA HERE'''),
 
+    dcc.Graph(
+        id = 'anran_fig0',
+        figure = anranyao_figs[0]
+    ),
+
+    dcc.Graph(
+        id = 'anran_fig1',
+        figure = anranyao_figs[1]
+    ),
+
+    dcc.Graph(
+        id = 'anran_fig2',
+        figure = anranyao_figs[2]
+    ),
     #####
 
     html.H2("Predictive Analytics"),
