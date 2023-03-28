@@ -72,21 +72,38 @@ app.layout = html.Div([
     # JOE DONE
     ####################################################
 
+    ####################################################
+    # Anran
+    ####################################################
+    html.H4("Would the family income affect people's prediction of loan interest rate?"),
+
+    html.P('''From the boxplot below, we can see that the average household income
+      of those who expect loan interest rates to fall is lower than the income of 
+      those who believe loan interest rates will "go up" or "stay the same".'''),
     dcc.Graph(
         id = 'anran_fig0',
         figure = anranyao_figs[0]
     ),
+    html.H4("Would education level affect people's political affiliations?"),
 
+    html.P('''From the bar chart below, we can see that most of the people have no preference regarding political affiliation. 
+    Most of the people in Grade 17 are Democrats, comparing to Republican or Independent. Most of the people in Grade 13-17 without 
+    college degree, or Grade 13-16 with college degree are Independents. 
+    Most of the people in Grade 0-12 with high school diploma are Independents.'''),
     dcc.Graph(
         id = 'anran_fig1',
         figure = anranyao_figs[1]
     ),
-
+    html.H4("What are the political affiliations among people of different ages?"),
+    html.P('''From the graph below, we can see that for older people, number of Republican, Independent and Democrats are amost the same.
+    However, for younger people(<40), number of Republican are less than the other two.'''),
     dcc.Graph(
         id = 'anran_fig2',
         figure = anranyao_figs[2]
     ),
-    #####
+    ####################################################
+    # Anran Done
+    ####################################################
 
     ####################################################
     # BERNARDO
