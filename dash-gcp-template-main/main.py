@@ -1,22 +1,27 @@
-
-
 import dash
-from dash import html, Dash, dcc, Input, Output
+from dash import html, Dash, dcc, Input, Output, State
+import pickle
+from jupyter_dash import JupyterDash 
 import jpitti_eda
 import anranyao_eda
 import beprado_eda
-import jinxinma_eda
+import prediction
 
 #calls to bring in graphs
 jpitti_figs = jpitti_eda.jp_figs()
 anranyao_figs = anranyao_eda.run_eda_analysis()
 beprado_figs = beprado_eda.run_eda_analysis()
-jinxinma_figs=jinxinma_eda.run_eda_analysis()
 #initializing dashboard
-app = dash.Dash(__name__)
+app = JupyterDash(__name__)
 server = app.server
 
-# starting layout
+# calls to bring in xgboost model
+
+filehandler = open("model_xgboostv2.pkl", "rb")
+xgb = pickle.load(filehandler)
+filehandler.close()
+
+#starting layout
 
 app.layout = html.Div([
     html.H1("Predicting Income Based on Variables from the UM Consumer Survey"),
@@ -24,10 +29,6 @@ app.layout = html.Div([
     html.H2("Exploratory Data Analysis"),
 
     html.P('''Our group began our project by exploring the relationships between the survey variables.'''),
-
-    ####################################################
-    # JOE
-    ####################################################
 
     html.H4("How does political affiliation influence peoples' 1- and 5-year outlook on gas prices?"),
 
@@ -70,13 +71,6 @@ app.layout = html.Div([
 
     html.P('''Although the data has many outliers, those that have a positive opinion of government economic policy tend to have a higher investment value.'''),
 
-    ####################################################
-    # JOE DONE
-    ####################################################
-
-    ####################################################
-    # Anran
-    ####################################################
     html.H4("Would the family income affect people's prediction of loan interest rate?"),
 
     html.P('''From the boxplot below, we can see that the average household income
@@ -103,9 +97,7 @@ app.layout = html.Div([
         id = 'anran_fig2',
         figure = anranyao_figs[2]
     ),
-    ####################################################
-    # Anran Done
-    ####################################################
+    #####
 
     ####################################################
     # BERNARDO
@@ -144,36 +136,6 @@ app.layout = html.Div([
     ##############################################################################
     ####### BERNARDO DONE
     ##############################################################################
-    
-    ##############################################################################
-    ####### JINXIN
-    ##############################################################################html.H4("How the mean of income change through time?"),
-    html.H4("How the income change through time"),
-    html.P("Below, we see the average income go through time"),
-    dcc.Graph(
-        id = 'jinxinma_fig1',
-        figure = jinxinma_figs[0]
-    ),
-    html.P("We can see in general the income increase through time and continuously increase along the time, the time need to be changed befor we put this parameter into the machine learning model"),
-    
-    html.H4("How the income change through time in the home rent group and the home buying group"),
-    html.P('Below, we draw the line of income of people who buy their home and people who rent their home'),
-    dcc.Graph(
-        id = 'jinxinma_fig1',
-        figure = jinxinma_figs[1]
-    ),
-    html.P("We can see in general the income increase through time for two group of people in different speed. In the next section we want to know the difference of income increasing in two different group."),
-           
-    html.H4("How the income difference change differently in the two group of people(House own and House rental)"),
-    html.P('Below, we draw the bar graph of  income changes between year of people who buy their home and people who rent their home'),
-    dcc.Graph(
-        id = 'jinxinma_fig1',
-        figure = jinxinma_figs[2]
-    ),
-    html.P('We can see in general the people who buy a house have bigger income changes than the people who rent a house'),
-    ##############################################################################
-    ####### JINXIN DONE
-    ##############################################################################
 
     html.H4('''INSERT OTHER EDA HERE'''),
 
@@ -195,7 +157,8 @@ app.layout = html.Div([
       We did so using the cpi library, which has support for money inflation. 
       There were quite a few missing variables, which we replaced with the categorical means. 
       For example, in the home amount column, there were a lot of values of the form “9999998” and “9999999” which we concluded were missing values.
-      Nominal variables like region, sex, and marital status were recoded using one-hot encoding using pandas.'''),
+      Nominal variables like region, sex, and marital status were recoded using one-hot encoding using pandas.
+'''),
 
     html.H4("Fitting Machine Learning Models"),
 
@@ -207,13 +170,29 @@ app.layout = html.Div([
 
     html.H4("Predictions with Final Model"),
 
-    html.P('''INSERT TEXT HERE''')
-    
-    ])
+    html.P('''Choose input for home here:'''),
+# text input for $ home value 
+    dcc.Input(id='input1', type='number', min=0, max=1000000, step=1),
 
-# -
+    html.Br(),
+    html.Button('Predict', id='submit-val', n_clicks=0),
+    html.Br(),
+    html.Div(id="my_output")
+
+])
+
+#function that updates the html.div
+@app.callback(
+    Output("my_output", "children"),
+    Input("submit-val", "n_clicks"),
+    State("input1", "value"),
+    prevent_initial_call=True
+)
+def predict_income(n_clicks, input_value1):
+    if n_clicks is None:
+        return dash.no_update
+    return prediction.predict_xgboost(input_value1)
+
 
 if __name__ == '__main__':
-    app.run_server(debug=True, port=8080)
-
-
+    app.run_server()
