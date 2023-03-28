@@ -4,12 +4,14 @@ import pickle
 import jpitti_eda
 import anranyao_eda
 import beprado_eda
+import jinxinma_eda
 import prediction
 
 #calls to bring in graphs
 jpitti_figs = jpitti_eda.jp_figs()
 anranyao_figs = anranyao_eda.run_eda_analysis()
 beprado_figs = beprado_eda.run_eda_analysis()
+jinxin_figs = jinxinma_eda.run_eda_analysis()
 #initializing dashboard
 app = Dash(__name__)
 server = app.server
@@ -136,7 +138,23 @@ app.layout = html.Div([
     ####### BERNARDO DONE
     ##############################################################################
 
-    html.H4('''INSERT OTHER EDA HERE'''),
+    html.H4('''Jinxin'''),
+
+
+    dcc.Graph(
+        id = "jinxin1",
+        figure = jinxin_figs[0]
+    ),
+
+    dcc.Graph(
+        id = "jinxin2",
+        figure = jinxin_figs[1]
+    ),
+
+    dcc.Graph(
+        id = "jinxin3",
+        figure = jinxin_figs[2]
+    ),
 
     html.H2("Predictive Analytics"),
 
