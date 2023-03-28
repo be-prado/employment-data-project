@@ -19,5 +19,10 @@ def main():
     
     return
     
+    yuxichen_figs = yuxichen_eda.run_eda_analysis()
+    for fig in yuxichen_figs:
+        fig.show()
+    
+    return
 
 main()
