@@ -4,6 +4,7 @@ import pandas as pd
 # import matplotlib.pyplot as plt
 # import seaborn as sns
 import plotly.express as px
+import plotly.graph_objects as go
 
 def run_eda_analysis():
     df = pd.read_csv("./unprocessed_dataset.zip")
@@ -25,7 +26,14 @@ def income_analysis(df):
     #                  cmap=sns.diverging_palette(200, 20, n=100))
     #hmap.set(title="Correlation Matrix")
 
-    #fig = px.imshow(corrM)
+    fig = go.Figure()
+    fig.add_trace(
+        go.Heatmap(
+            x = corrM.columns,
+            y = corrM.index,
+            z = np.array(corrM)
+        )
+    )
     return fig
 
 def home_buying_analysis(df):
@@ -52,8 +60,13 @@ def economy_analysis(df):
     #                  cmap=sns.diverging_palette(200, 20, n=100))
     #hmap.set(title="Correlation Matrix")
 
-    #fig = px.imshow(economy_corr)
+
+    fig = go.Figure()
+    fig.add_trace(
+        go.Heatmap(
+            x = economy_corr.columns,
+            y = economy_corr.index,
+            z = np.array(economy_corr)
+        )
+    )
     return fig
-
-
-
