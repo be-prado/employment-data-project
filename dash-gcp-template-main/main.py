@@ -1,7 +1,6 @@
 import dash
 from dash import html, Dash, dcc, Input, Output, State
 import pickle
-from jupyter_dash import JupyterDash 
 import jpitti_eda
 import anranyao_eda
 import beprado_eda
@@ -12,7 +11,7 @@ jpitti_figs = jpitti_eda.jp_figs()
 anranyao_figs = anranyao_eda.run_eda_analysis()
 beprado_figs = beprado_eda.run_eda_analysis()
 #initializing dashboard
-app = JupyterDash(__name__)
+app = Dash(__name__)
 server = app.server
 
 # calls to bring in xgboost model
@@ -195,4 +194,4 @@ def predict_income(n_clicks, input_value1):
 
 
 if __name__ == '__main__':
-    app.run_server()
+    app.run_server(debug = True, port = 8080)
