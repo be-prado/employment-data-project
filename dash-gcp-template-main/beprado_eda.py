@@ -25,7 +25,7 @@ def income_analysis(df):
     #                  cmap=sns.diverging_palette(200, 20, n=100))
     #hmap.set(title="Correlation Matrix")
 
-    fig = px.imshow(corrM)
+    #fig = px.imshow(corrM)
     return fig
 
 def home_buying_analysis(df):
@@ -52,7 +52,7 @@ def economy_analysis(df):
     #                  cmap=sns.diverging_palette(200, 20, n=100))
     #hmap.set(title="Correlation Matrix")
 
-    fig = px.imshow(economy_corr)
+    #fig = px.imshow(economy_corr)
     return fig
 
 
