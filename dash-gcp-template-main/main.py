@@ -171,7 +171,7 @@ app.layout = html.Div([
 
     html.P('''Choose input for home here:'''),
 # text input for $ home value 
-    dcc.Input(id='input1', type='number', min=0, max=1000000, step=1),
+    dcc.Input(id='input1', type='number'),
 
     html.Br(),
     html.Button('Predict', id='submit-val', n_clicks=0),
