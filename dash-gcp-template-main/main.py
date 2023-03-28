@@ -25,6 +25,10 @@ app.layout = html.Div([
 
     html.P('''Our group began our project by exploring the relationships between the survey variables.'''),
 
+####################################################
+# JOE
+####################################################
+
     html.H4("How does political affiliation influence peoples' 1- and 5-year outlook on gas prices?"),
 
     html.P('''Given the politicization of fossil fuel use, I was curious to see if there was a relationship between these variables,
@@ -66,6 +70,9 @@ app.layout = html.Div([
 
     html.P('''Although the data has many outliers, those that have a positive opinion of government economic policy tend to have a higher investment value.'''),
 
+####################################################
+# JOE DONE
+####################################################
 
     dcc.Graph(
         id = 'anran_fig0',
@@ -131,11 +138,18 @@ app.layout = html.Div([
 
     html.H4("Feature Selection"),
 
-    html.P('''INSERT TEXT HERE'''),
+    html.P('''We initially chose variables to predict income based on economic literature.
+      Based on "Exploring the Factors That Influence Income and Wealth Distribution in the United States" by Gregory B. Fairchild and Aaron McKee (Journal of Poverty, 2016), we chose home value, home ownership, investment value, age, region, sex, marital status, education level, and political affiliation. 
+      We felt that these variables in the dataset best captured the personal dimensions that influence income.'''),
 
     html.H4("Data Cleaning"),
 
-    html.P('''INSERT TEXT HERE'''),
+    html.P('''For monetary variables, we decided to inflate the dollar amounts to the year 2020 so that the values were consistent.
+      We did so using the cpi library, which has support for money inflation. 
+      There were quite a few missing variables, which we replaced with the categorical means. 
+      For example, in the home amount column, there were a lot of values of the form “9999998” and “9999999” which we concluded were missing values.
+      Nominal variables like region, sex, and marital status were recoded using one-hot encoding using pandas.
+'''),
 
     html.H4("Fitting Machine Learning Models"),
 
