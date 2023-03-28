@@ -1,8 +1,8 @@
-import csv
+# import csv
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
+# import matplotlib.pyplot as plt
+# import seaborn as sns
 import plotly.express as px
 
 def run_eda_analysis():
