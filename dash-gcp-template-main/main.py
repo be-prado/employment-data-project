@@ -16,8 +16,6 @@ server = app.server
 
 # starting layout
 
-# +
-
 app.layout = html.Div([
     html.H1("Predicting Income Based on Variables from the UM Consumer Survey"),
 
@@ -25,9 +23,9 @@ app.layout = html.Div([
 
     html.P('''Our group began our project by exploring the relationships between the survey variables.'''),
 
-####################################################
-# JOE
-####################################################
+    ####################################################
+    # JOE
+    ####################################################
 
     html.H4("How does political affiliation influence peoples' 1- and 5-year outlook on gas prices?"),
 
@@ -70,9 +68,9 @@ app.layout = html.Div([
 
     html.P('''Although the data has many outliers, those that have a positive opinion of government economic policy tend to have a higher investment value.'''),
 
-####################################################
-# JOE DONE
-####################################################
+    ####################################################
+    # JOE DONE
+    ####################################################
 
     dcc.Graph(
         id = 'anran_fig0',
@@ -148,8 +146,7 @@ app.layout = html.Div([
       We did so using the cpi library, which has support for money inflation. 
       There were quite a few missing variables, which we replaced with the categorical means. 
       For example, in the home amount column, there were a lot of values of the form “9999998” and “9999999” which we concluded were missing values.
-      Nominal variables like region, sex, and marital status were recoded using one-hot encoding using pandas.
-'''),
+      Nominal variables like region, sex, and marital status were recoded using one-hot encoding using pandas.'''),
 
     html.H4("Fitting Machine Learning Models"),
 
