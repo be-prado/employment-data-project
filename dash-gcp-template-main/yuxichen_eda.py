@@ -1,18 +1,16 @@
 import csv
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
+import plotly.express as px
 import seaborn as sns
-plt.style.use('fivethirtyeight')
 import warnings
 warnings.filterwarnings('ignore')
-# %matplotlib inline
+
 
 def figure(var1, var2, data):
-    fig = plt.figure()
-    plt.scatter(var1, var2, data=data)
-    plt.xlabel(var1)
-    plt.xlabel(var2)
+    fig = px.scatter(data, x=var1, y=var2)
+    #plt.xlabel(var1)
+    #plt.xlabel(var2)
     return fig
 
 def run_eda_analysis():
@@ -41,8 +39,8 @@ def run_eda_analysis():
     
     return (fig1, fig2, fig3)
 
-# list = run_eda_analysis()
-# for fig in list:
-#     fig.show()
+figs = run_eda_analysis()
+for fig in figs:
+    fig.show()
 
 
