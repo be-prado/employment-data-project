@@ -6,12 +6,14 @@ import anranyao_eda
 import beprado_eda
 # import jinxinma_eda
 import telai_eda
+import yuxichen_eda
 import prediction
 
 #calls to bring in graphs
 jpitti_figs = jpitti_eda.jp_figs()
 anranyao_figs = anranyao_eda.run_eda_analysis()
 beprado_figs = beprado_eda.run_eda_analysis()
+yuxi_figs = yuxichen_eda.run_eda_analysis()
 # jinxin_figs = jinxinma_eda.run_eda_analysis()
 telai_figs = telai_eda.run_eda_analysis()
 #initializing dashboard
@@ -24,7 +26,7 @@ filehandler = open("model_xgboostv2.pkl", "rb")
 xgb = pickle.load(filehandler)
 filehandler.close()
 
-#starting layout
+# starting layout
 
 app.layout = html.Div([
     html.H1("Predicting Total Household Income Based on Variables from the UM Consumer Survey"),
@@ -101,6 +103,39 @@ app.layout = html.Div([
         figure = anranyao_figs[2]
     ),
     #####
+    
+    ####################################################
+    #Yuxi 
+    ####################################################
+    
+    html.H4("what is the relationship between customer satisfaction between their household economy and country economy?"),
+    html.P('''From the chart below, we can see that there is very strong positive correlation between customer satisfaction between their household economy and country economy .'''),
+
+     dcc.Graph(
+         id = 'yuxi_fig0',
+         figure = yuxi_figs[0]
+     ),
+
+     html.H4("what is the relationship between customer satisfaction about their household economy and the number of vehicles?"),
+     html.P('''From the chart below, we can see that there is very little linear correlation between customer satisfaction about their household economy and the number of vehicles .'''),
+
+     dcc.Graph(
+         id = 'yuxi_fig1',
+         figure = yuxi_figs[1]
+     ),
+
+     html.H4("what is the relationship between customer expectation about country economy and the number of vehicles they owned?"),
+     html.P('''From the graph below, we can see that there is little linear correlation between  the relationship between customer expectation about country economy and the number of vehicles they owned'''),
+
+     dcc.Graph(
+         id = 'yuxi_fig2',
+         figure = yuxi_figs[2]
+     ),
+
+    html.P('''In conclusion, we can see an interesting pattern that the number of vehicles already owned has very little correlation with how satisfied people are with their finance'''),
+    ##############################################################################
+    ####### Yuxi DONE
+    ##############################################################################
 
     ####################################################
     # BERNARDO
