@@ -1,11 +1,17 @@
-# import csv
-# import numpy as np
+import csv
+import numpy as np
 import pandas as pd
-# import matplotlib.pyplot as plt
-# import seaborn as sns
+import matplotlib.pyplot as plt
+import seaborn as sns
 import plotly.express as px
-import pandas as pd
-
+from sklearn.metrics import r2_score
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder
+from sklearn.preprocessing import scale
+from sklearn.linear_model import Lasso
+from sklearn.linear_model import LassoCV
+from sklearn.ensemble import RandomForestRegressor
+from sklearn import linear_model
 def run_eda_analysis():
     data = pd.read_csv('./unprocessed_dataset.zip',skipinitialspace = True) #,low_memory=False
     group = data.groupby('YYYY').mean()
@@ -34,4 +40,79 @@ def run_eda_analysis():
     df_diff['YYYY'] = group1['YYYY']
     fig3 = px.bar(df_diff, x='YYYY', y=['Rent-Income', 'Own-Income'], barmode='group',
                  title='First Order difference of income')
-    return list((fig1,fig2,fig3))
+    
+    data1=pd.read_csv('dataset_for_ml_models.zip')
+    data1['AGE']=scale(data['AGE'])
+    data1['INFL_HOMEAMT']=scale(data['INFL_HOMEAMT'])
+    data1['INFL_INVAMT']=scale(data['INFL_INVAMT'])
+    data1['INCOME']=scale(data['INCOME'])
+    data1['YYYY'] = LabelEncoder().fit_transform(data['YYYY'])
+    train, test = train_test_split(data1, test_size = 0.3, random_state= 1)
+    x_train=train.drop(['INCOME','YYYYMM'],axis=1)
+    y_train=train['INCOME']
+    x_test=test.drop(['INCOME','YYYYMM'],axis=1)
+    y_test=test['INCOME']
+    
+    X = x_train
+    y = y_train
+    
+    lasso_reg = linear_model.Lasso(alpha=1e-2)
+
+    lasso_reg.fit(X, y)
+
+    y_pred = lasso_reg.predict(X)
+
+    fig4 = px.scatter(x=y, y=y_pred)
+    fig4.update_layout(
+        title="Lasso Regression Fit",
+        xaxis_title="True Values",
+        yaxis_title="Predicted Values"
+    ).update_traces(line_color="red")
+
+    fig4.show()
+
+    coef_abs =lasso_reg.coef_
+    fig5 = px.bar(x=coef_abs,y=x_train.columns)
+    fig5.update_layout(
+        title="Lasso Regression Feature Importance",
+        xaxis_title="Features",
+        yaxis_title="Absolute Coefficients"
+    )
+    fig5.show()
+    
+    rmse = mean_squared_error(y, y_pred, squared=False)
+    r2 = r2_score(y, y_pred)
+    mse = mean_squared_error(y, y_pred)
+    print("RMSE of Lasso:", rmse)
+    print("R2 score of Lasso:", r2)
+    print("MSE of Lasso:", mse)
+
+    rf_reg = RandomForestRegressor(n_estimators=100,max_depth=5)
+    rf_reg.fit(X, y)
+    y_pred = rf_reg.predict(X)
+
+    fig6 = px.scatter(x=y, y=y_pred)
+    fig6.update_layout(
+        title="Random Forest Regression Fit",
+        xaxis_title="True Values",
+        yaxis_title="Predicted Values"
+    ).update_traces(line_color="red")
+
+    importances = rf_reg.feature_importances_
+    fig7 = px.bar(x=importances,y=x_train.columns)
+    fig7.update_layout(
+        title="Random Forest Feature Importance",
+        xaxis_title="Features",
+        yaxis_title="Absolute Coefficients"
+    )
+
+    fig6.show()
+    fig7.show()
+
+    rmse1 = mean_squared_error(y, y_pred, squared=False)
+    r21 = r2_score(y, y_pred)
+    mse1 = mean_squared_error(y, y_pred)
+    print("RMSE of Random Forest:", rmse1)
+    print("R2 score of Random Forest:", r21)
+    print("MSE of Random Forest:", mse1)
+    return list((fig1,fig2,fig3,fig4,fig5,fig6,fig7))
