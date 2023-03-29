@@ -25,7 +25,7 @@ filehandler.close()
 #starting layout
 
 app.layout = html.Div([
-    html.H1("Predicting Income Based on Variables from the UM Consumer Survey"),
+    html.H1("Predicting Total Household Income Based on Variables from the UM Consumer Survey"),
 
     html.H2("Exploratory Data Analysis"),
 
@@ -166,7 +166,7 @@ app.layout = html.Div([
 
     html.H4("Research Question"),
 
-    html.P("How accurately can we predict income based on other variables found in the survey dataset?"),
+    html.P("How accurately can we predict household income based on other variables found in the survey dataset?"),
 
     html.H4("Feature Selection"),
 
@@ -185,22 +185,37 @@ app.layout = html.Div([
 
     html.H4("Fitting Machine Learning Models"),
 
-    html.P('''INSERT TEXT HERE'''),
+    html.P('''For the XGBoost model, we tuned the parameters using 5 fold cross validation, and got the best parameters {'learning_rate': 0.1, 'max_depth': 5, 'n_estimators': 100} for our final predict model.'''),
 
     html.H4("Model Evaluation and Selection"),
 
-    html.P('''INSERT TEXT HERE'''),
+    html.P('''We tested three different models for predicting total household income($) based on the dependent variables we chose (39 after data cleaning).
+    These included SVM, XGBoost, and LASSO regression. 
+    The RMSEs for these models were 0.75, 0.66, and 0.87 respectively. Since the XGBoost model had the lowest RMSE, we chose that as our final model.'''),
 
-    html.H4("Predictions with Final Model"),
+    html.H2("Predictions with Final Model"),
 
-    html.P('''Choose input for home here:'''),
+    html.P('''Inflation adjusted home value (2020 $) was an influential variable in our prediction models. 
+    Here, you can input a home value to generate the predicted household income (2020 $) for the average person from the UM consumer survey dataset.'''),
+
+    html.Br(),
+
+    html.P('''Enter input for home value (2020 $) here:'''),
 # text input for $ home value 
     dcc.Input(id='input1', type='number'),
 
     html.Br(),
     html.Button('Predict', id='submit-val', n_clicks=0),
     html.Br(),
-    html.Div(id="my_output")
+    html.Div(id="my_output"),
+    html.Br(),
+    
+    html.H2('''Conclusion'''),
+
+    html.P('''A lot of our analysis sought to find correlations between variables. For example, we found links between vehicle buying attitudes and perception of future gas prices, as well as strong correlations between income, home ownership, and stock investment. In many instances, we analyzed the demographics of different political parties. We found that in many instances, democrats and republicans were evenly split, which can be seen in the outlook on gas prices. One interesting difference was in the category of education level of Grade 17 with college degree, where the amound of democrats significantly outnumbered the amount of republicans.
+
+From our ML analysis, we predicted household income from the data. Interestingly, our implementation of LASSO found that the most important predictors of income are whether a person owns a home, the value of the home they live in, whether they are married, whether they have a college degree, and their investment amount. Interestingly, our data highlights some of the gender wage gap as well, as a person’s sex was found to be significant in predicting their income. This is a manifestation of one of the inequalities existent in the United States.
+''')
 
 ])
 
