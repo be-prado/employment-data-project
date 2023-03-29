@@ -39,8 +39,4 @@ def run_eda_analysis():
     
     return (fig1, fig2, fig3)
 
-figs = run_eda_analysis()
-for fig in figs:
-    fig.show()
-
 
