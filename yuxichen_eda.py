@@ -1,12 +1,10 @@
 import csv
 import pandas as pd
 import numpy as np
+import plotly.express as px
+import seaborn as sns
 import warnings
 warnings.filterwarnings('ignore')
-# %matplotlib inline
-import pandas as pd
-import numpy as np
-import plotly.express as px
 
 
 def figure(var1, var2, data):
@@ -41,8 +39,8 @@ def run_eda_analysis():
     
     return (fig1, fig2, fig3)
 
-list = run_eda_analysis()
-for fig in list:
+figs = run_eda_analysis()
+for fig in figs:
     fig.show()
 
 
