@@ -13,8 +13,10 @@ from sklearn.linear_model import LassoCV
 from sklearn.ensemble import RandomForestRegressor
 from sklearn import linear_model
 from sklearn.metrics import mean_squared_error
+
+
 def run_eda_analysis():
-    data = pd.read_csv('./unprocessed_dataset.zip',skipinitialspace = True) #,low_memory=False
+    data = pd.read_csv('./unprocessed_dataset.zip', skipinitialspace=True)  # ,low_memory=False
     group = data.groupby('YYYY').mean()
     group = group.reset_index()
     own = data[data['HOMEOWN'] == 1]
@@ -32,31 +34,31 @@ def run_eda_analysis():
     fig1.update_traces(mode='markers+lines')
 
     fig2 = px.line(group1, x='YYYY', y=['Rent-Income', 'Own-Income'], title='Relationship between house rent and own',
-                  labels={'value': 'Value', 'variable': 'Lines'})
+                   labels={'value': 'Value', 'variable': 'Lines'})
     fig2.update_traces(mode='markers+lines')
     fig2.update_layout(legend_title='Lines',
-                      legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1))
+                       legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1))
 
     df_diff = group1.iloc[:, 1:].diff()
     df_diff['YYYY'] = group1['YYYY']
     fig3 = px.bar(df_diff, x='YYYY', y=['Rent-Income', 'Own-Income'], barmode='group',
-                 title='First Order difference of income')
-    
-    data1=pd.read_csv('dataset_for_ml_models.zip')
-    data1['AGE']=scale(data['AGE'])
-    data1['INFL_HOMEAMT']=scale(data['INFL_HOMEAMT'])
-    data1['INFL_INVAMT']=scale(data['INFL_INVAMT'])
-    data1['INCOME']=scale(data['INCOME'])
-    data1['YYYY'] = LabelEncoder().fit_transform(data['YYYY'])
-    train, test = train_test_split(data1, test_size = 0.3, random_state= 1)
-    x_train=train.drop(['INCOME','YYYYMM'],axis=1)
-    y_train=train['INCOME']
-    x_test=test.drop(['INCOME','YYYYMM'],axis=1)
-    y_test=test['INCOME']
-    
+                  title='First Order difference of income')
+
+    data1 = pd.read_csv('dataset_for_ml_models.zip')
+    data1['AGE'] = scale(data1['AGE'])
+    data1['INFL_HOMEAMT'] = scale(data1['INFL_HOMEAMT'])
+    data1['INFL_INVAMT'] = scale(data1['INFL_INVAMT'])
+    data1['INCOME'] = scale(data1['INCOME'])
+    data1['YYYY'] = LabelEncoder().fit_transform(data1['YYYY'])
+    train, test = train_test_split(data1, test_size=0.3, random_state=1)
+    x_train = train.drop(['INCOME', 'YYYYMM'], axis=1)
+    y_train = train['INCOME']
+    x_test = test.drop(['INCOME', 'YYYYMM'], axis=1)
+    y_test = test['INCOME']
+
     X = x_train
     y = y_train
-    
+
     lasso_reg = linear_model.Lasso(alpha=1e-2)
 
     lasso_reg.fit(X, y)
@@ -72,15 +74,15 @@ def run_eda_analysis():
 
     fig4.show()
 
-    coef_abs =lasso_reg.coef_
-    fig5 = px.bar(x=coef_abs,y=x_train.columns)
+    coef_abs = lasso_reg.coef_
+    fig5 = px.bar(x=coef_abs, y=x_train.columns)
     fig5.update_layout(
         title="Lasso Regression Feature Importance",
         xaxis_title="Features",
         yaxis_title="Absolute Coefficients"
     )
     fig5.show()
-    
+
     rmse = mean_squared_error(y, y_pred, squared=False)
     r2 = r2_score(y, y_pred)
     mse = mean_squared_error(y, y_pred)
@@ -88,7 +90,7 @@ def run_eda_analysis():
     print("R2 score of Lasso:", r2)
     print("MSE of Lasso:", mse)
 
-    rf_reg = RandomForestRegressor(n_estimators=100,max_depth=5)
+    rf_reg = RandomForestRegressor(n_estimators=100, max_depth=5)
     rf_reg.fit(X, y)
     y_pred = rf_reg.predict(X)
 
@@ -100,7 +102,7 @@ def run_eda_analysis():
     ).update_traces(line_color="red")
 
     importances = rf_reg.feature_importances_
-    fig7 = px.bar(x=importances,y=x_train.columns)
+    fig7 = px.bar(x=importances, y=x_train.columns)
     fig7.update_layout(
         title="Random Forest Feature Importance",
         xaxis_title="Features",
@@ -116,4 +118,4 @@ def run_eda_analysis():
     print("RMSE of Random Forest:", rmse1)
     print("R2 score of Random Forest:", r21)
     print("MSE of Random Forest:", mse1)
-    return list((fig1,fig2,fig3,fig4,fig5,fig6,fig7))
+    return list((fig1, fig2, fig3, fig4, fig5, fig6, fig7))
