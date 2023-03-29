@@ -1,6 +1,7 @@
 import beprado_eda
 import jpitti_eda
 import anranyao_eda
+import ccrand_eda
 import yuxichen_eda
 
 
@@ -18,6 +19,10 @@ def main():
     for fig in anranyao_figs:
         fig.show()
     
+    ccrand_figs = ccrand_eda.run_eda_analysis()
+    for fig in ccrand_figs:
+        fig.show()
+
     return
     
     yuxichen_figs = yuxichen_eda.run_eda_analysis()
