@@ -12,6 +12,7 @@ jpitti_figs = jpitti_eda.jp_figs()
 anranyao_figs = anranyao_eda.run_eda_analysis()
 beprado_figs = beprado_eda.run_eda_analysis()
 jinxin_figs = jinxinma_eda.run_eda_analysis()
+telai_figs = telai_eda.run_eda_analysis()
 #initializing dashboard
 app = Dash(__name__)
 server = app.server
@@ -162,6 +163,31 @@ app.layout = html.Div([
     ),
 	html.P('We can see in general the people who buy a house have bigger income changes than the people who rent a house'),
 
+    html.H4("Income By sex"),
+        
+    dcc.Graph(
+        id = "te1",
+        figure = telai_figs[0]
+    ),
+    html.H4('''This graph shows the percentage of men and women in their respective groups with different income levels. We can see that men have a higher income than women.'''),
+
+    html.H4("Income by education level and sex"),
+        
+    dcc.Graph(
+        id = "te2",
+        figure = telai_figs[1]
+    ),
+    html.H4('''Regardless of the level of education, men have higher incomes than women.'''),
+
+    html.H4("Income by marriage type"),
+
+    dcc.Graph(
+        id = "te3",
+        figure = telai_figs[1]
+    ),
+    html.H4('''The married population has the highest income, while the widowed population has the lowest income. The income of the divorced and single populations is similar.'''),
+
+
     html.H2("Predictive Analytics"),
 
     html.H4("Research Question"),
@@ -190,7 +216,7 @@ app.layout = html.Div([
     html.H4("Model Evaluation and Selection"),
 
     html.P('''We tested three different models for predicting total household income($) based on the dependent variables we chose (39 after data cleaning).
-    These included SVM, XGBoost, and LASSO regression. 
+    These included SVG, XGBoost, and LASSO regression. 
     The RMSEs for these models were 0.75, 0.66, and 0.87 respectively. Since the XGBoost model had the lowest RMSE, we chose that as our final model.'''),
 
     html.H2("Predictions with Final Model"),
