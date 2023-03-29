@@ -214,33 +214,33 @@ app.layout = html.Div([
 
 
 
-    dcc.Graph(
-        id = "jinxin3",
-        figure = jinxin_figs[3]
-    ),
+    # dcc.Graph(
+    #     id = "jinxin3",
+    #     figure = jinxin_figs[3]
+    # ),
 
-    html.P('''This graph we show the relationship between the regression value between the actual value. We can see the relationship is not that strong.'''),
+    # html.P('''This graph we show the relationship between the regression value between the actual value. We can see the relationship is not that strong.'''),
 
-    dcc.Graph(
-        id = "jinxin3",
-        figure = jinxin_figs[4]
-    ),
+    # dcc.Graph(
+    #     id = "jinxin3",
+    #     figure = jinxin_figs[4]
+    # ),
 
-    html.P('''In this figure, we draw the importance of the variables to show what kind of variables are related with the income. The higher the value, the more importance the variable is.'''),
+    # html.P('''In this figure, we draw the importance of the variables to show what kind of variables are related with the income. The higher the value, the more importance the variable is.'''),
 
-    dcc.Graph(
-        id = "jinxin3",
-        figure = jinxin_figs[5]
-    ),
+    # dcc.Graph(
+    #     id = "jinxin3",
+    #     figure = jinxin_figs[5]
+    # ),
 
-    html.P('''This graph we show the relationship between the regression value using random forest algorithm between the actual value. We can see the relationship is stronger than the Lasso Regression.'''),
+    # html.P('''This graph we show the relationship between the regression value using random forest algorithm between the actual value. We can see the relationship is stronger than the Lasso Regression.'''),
 
-    dcc.Graph(
-        id = "jinxin3",
-        figure = jinxin_figs[6]
-    ),
+    # dcc.Graph(
+    #     id = "jinxin3",
+    #     figure = jinxin_figs[6]
+    # ),
 
-    html.P('''In this figure, we draw the importance of the variables to show what kind of variables are related with the income in random forest algorithms. The higher the value, the more importance the variable is.'''),
+    # html.P('''In this figure, we draw the importance of the variables to show what kind of variables are related with the income in random forest algorithms. The higher the value, the more importance the variable is.'''),
 
 
     html.P('''For the XGBoost model, we tuned the parameters using 5 fold cross validation, and got the best parameters {'learning_rate': 0.1, 'max_depth': 5, 'n_estimators': 100} for our final predict model.'''),
