@@ -12,6 +12,7 @@ from sklearn.linear_model import Lasso
 from sklearn.linear_model import LassoCV
 from sklearn.ensemble import RandomForestRegressor
 from sklearn import linear_model
+from sklearn.metrics import mean_squared_error
 def run_eda_analysis():
     data = pd.read_csv('./unprocessed_dataset.zip',skipinitialspace = True) #,low_memory=False
     group = data.groupby('YYYY').mean()
