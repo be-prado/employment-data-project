@@ -72,7 +72,7 @@ def run_eda_analysis():
         yaxis_title="Predicted Values"
     ).update_traces(line_color="red")
 
-    fig4.show()
+    # fig4.show()
 
     coef_abs = lasso_reg.coef_
     fig5 = px.bar(x=coef_abs, y=x_train.columns)
@@ -81,7 +81,7 @@ def run_eda_analysis():
         xaxis_title="Features",
         yaxis_title="Absolute Coefficients"
     )
-    fig5.show()
+    # fig5.show()
 
     rmse = mean_squared_error(y, y_pred, squared=False)
     r2 = r2_score(y, y_pred)
@@ -109,8 +109,8 @@ def run_eda_analysis():
         yaxis_title="Absolute Coefficients"
     )
 
-    fig6.show()
-    fig7.show()
+    # fig6.show()
+    # fig7.show()
 
     rmse1 = mean_squared_error(y, y_pred, squared=False)
     r21 = r2_score(y, y_pred)
