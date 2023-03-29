@@ -5,6 +5,7 @@ import jpitti_eda
 import anranyao_eda
 import beprado_eda
 import jinxinma_eda
+import telai_eda
 import prediction
 
 #calls to bring in graphs
