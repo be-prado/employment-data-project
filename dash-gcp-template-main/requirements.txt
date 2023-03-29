@@ -29,4 +29,4 @@ six==1.13.0
 tenacity==8.1.0
 Werkzeug==0.16.0
 numpy==1.21.6
-scikit-learn==1.2.2
+scikit-learn==1.0.2
