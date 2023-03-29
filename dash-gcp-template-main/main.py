@@ -12,7 +12,7 @@ import prediction
 jpitti_figs = jpitti_eda.jp_figs()
 anranyao_figs = anranyao_eda.run_eda_analysis()
 beprado_figs = beprado_eda.run_eda_analysis()
-# jinxin_figs = jinxinma_eda.run_eda_analysis()
+jinxin_figs = jinxinma_eda.run_eda_analysis()
 telai_figs = telai_eda.run_eda_analysis()
 #initializing dashboard
 app = Dash(__name__)
@@ -142,26 +142,26 @@ app.layout = html.Div([
 
 	html.H4("How the income change through time"),
 	html.P("Below, we see the average income go through time"),
-    # dcc.Graph(
-    #     id = "jinxin1",
-    #     figure = jinxin_figs[0]
-    # ),
-	# html.P("We can see in general the income increase through time and continuously increase along the time, the time need to be changed befor we put this parameter into the machine learning model"),
+    dcc.Graph(
+        id = "jinxin1",
+        figure = jinxin_figs[0]
+    ),
+	html.P("We can see in general the income increase through time and continuously increase along the time, the time need to be changed befor we put this parameter into the machine learning model"),
 
-	# html.H4("How the income change through time in the home rent group and the home buying group"),
-	# html.P('Below, we draw the line of income of people who buy their home and people who rent their home'),
-    # dcc.Graph(
-    #     id = "jinxin2",
-    #     figure = jinxin_figs[1]
-    # ),
-	# html.P("We can see in general the income increase through time for two group of people in different speed. In the next section we want to know the difference of income increasing in two different group."),
+	html.H4("How the income change through time in the home rent group and the home buying group"),
+	html.P('Below, we draw the line of income of people who buy their home and people who rent their home'),
+    dcc.Graph(
+        id = "jinxin2",
+        figure = jinxin_figs[1]
+    ),
+	html.P("We can see in general the income increase through time for two group of people in different speed. In the next section we want to know the difference of income increasing in two different group."),
 
-	# html.H4("How the income difference change differently in the two group of people(House own and House rental)"),
-	# html.P('Below, we draw the bar graph of  income changes between year of people who buy their home and people who rent their home'),
-    # dcc.Graph(
-    #     id = "jinxin3",
-    #     figure = jinxin_figs[2]
-    # ),
+	html.H4("How the income difference change differently in the two group of people(House own and House rental)"),
+	html.P('Below, we draw the bar graph of  income changes between year of people who buy their home and people who rent their home'),
+    dcc.Graph(
+        id = "jinxin3",
+        figure = jinxin_figs[2]
+    ),
 	html.P('We can see in general the people who buy a house have bigger income changes than the people who rent a house'),
 
     html.H4("Income By sex"),
@@ -184,7 +184,7 @@ app.layout = html.Div([
 
     dcc.Graph(
         id = "te3",
-        figure = telai_figs[1]
+        figure = telai_figs[2]
     ),
     html.H4('''The married population has the highest income, while the widowed population has the lowest income. The income of the divorced and single populations is similar.'''),
 
@@ -208,9 +208,40 @@ app.layout = html.Div([
       There were quite a few missing variables, which we replaced with the categorical means. 
       For example, in the home amount column, there were a lot of values of the form “9999998” and “9999999” which we concluded were missing values.
       Nominal variables like region, sex, and marital status were recoded using one-hot encoding using pandas.
-'''),
+     '''),
 
     html.H4("Fitting Machine Learning Models"),
+
+
+
+    dcc.Graph(
+        id = "jinxin3",
+        figure = jinxin_figs[3]
+    ),
+
+    html.P('''This graph we show the relationship between the regression value between the actual value. We can see the relationship is not that strong.'''),
+
+    dcc.Graph(
+        id = "jinxin3",
+        figure = jinxin_figs[4]
+    ),
+
+    html.P('''In this figure, we draw the importance of the variables to show what kind of variables are related with the income. The higher the value, the more importance the variable is.'''),
+
+    dcc.Graph(
+        id = "jinxin3",
+        figure = jinxin_figs[5]
+    ),
+
+    html.P('''This graph we show the relationship between the regression value using random forest algorithm between the actual value. We can see the relationship is stronger than the Lasso Regression.'''),
+
+    dcc.Graph(
+        id = "jinxin3",
+        figure = jinxin_figs[6]
+    ),
+
+    html.P('''In this figure, we draw the importance of the variables to show what kind of variables are related with the income in random forest algorithms. The higher the value, the more importance the variable is.'''),
+
 
     html.P('''For the XGBoost model, we tuned the parameters using 5 fold cross validation, and got the best parameters {'learning_rate': 0.1, 'max_depth': 5, 'n_estimators': 100} for our final predict model.'''),
 
@@ -219,6 +250,17 @@ app.layout = html.Div([
     html.P('''We tested three different models for predicting total household income($) based on the dependent variables we chose (39 after data cleaning).
     These included SVG, XGBoost, and LASSO regression. 
     The RMSEs for these models were 0.75, 0.66, and 0.87 respectively. Since the XGBoost model had the lowest RMSE, we chose that as our final model.'''),
+
+
+    html.P('''
+    Here we show the R^2, RMSE, MSE value of the Lasso Regression.
+    
+    RMSE of Random Forest: 0.7294948895436097
+    
+    R2 score of Random Forest: 0.4779275628266483
+    
+    MSE of Random Forest: 0.5321627938702433
+    '''),
 
     html.H2("Predictions with Final Model"),
 
