@@ -4,7 +4,7 @@ import pickle
 import jpitti_eda
 import anranyao_eda
 import beprado_eda
-import jinxinma_eda
+# import jinxinma_eda
 import telai_eda
 import yuxichen_eda
 import prediction
@@ -14,7 +14,7 @@ jpitti_figs = jpitti_eda.jp_figs()
 anranyao_figs = anranyao_eda.run_eda_analysis()
 beprado_figs = beprado_eda.run_eda_analysis()
 yuxi_figs = yuxichen_eda.run_eda_analysis()
-jinxin_figs = jinxinma_eda.run_eda_analysis()
+# jinxin_figs = jinxinma_eda.run_eda_analysis()
 telai_figs = telai_eda.run_eda_analysis()
 #initializing dashboard
 app = Dash(__name__)
@@ -175,29 +175,29 @@ app.layout = html.Div([
     ####### BERNARDO DONE
     ##############################################################################
 
-	html.H4("How the income change through time"),
-	html.P("Below, we see the average income go through time"),
-    dcc.Graph(
-        id = "jinxin1",
-        figure = jinxin_figs[0]
-    ),
-	html.P("We can see in general the income increase through time and continuously increase along the time, the time need to be changed befor we put this parameter into the machine learning model"),
+# 	html.H4("How the income change through time"),
+# 	html.P("Below, we see the average income go through time"),
+#     dcc.Graph(
+#         id = "jinxin1",
+#         figure = jinxin_figs[0]
+#     ),
+# 	html.P("We can see in general the income increase through time and continuously increase along the time, the time need to be changed befor we put this parameter into the machine learning model"),
 
-	html.H4("How the income change through time in the home rent group and the home buying group"),
-	html.P('Below, we draw the line of income of people who buy their home and people who rent their home'),
-    dcc.Graph(
-        id = "jinxin2",
-        figure = jinxin_figs[1]
-    ),
-	html.P("We can see in general the income increase through time for two group of people in different speed. In the next section we want to know the difference of income increasing in two different group."),
+# 	html.H4("How the income change through time in the home rent group and the home buying group"),
+# 	html.P('Below, we draw the line of income of people who buy their home and people who rent their home'),
+#     dcc.Graph(
+#         id = "jinxin2",
+#         figure = jinxin_figs[1]
+#     ),
+# 	html.P("We can see in general the income increase through time for two group of people in different speed. In the next section we want to know the difference of income increasing in two different group."),
 
-	html.H4("How the income difference change differently in the two group of people(House own and House rental)"),
-	html.P('Below, we draw the bar graph of  income changes between year of people who buy their home and people who rent their home'),
-    dcc.Graph(
-        id = "jinxin3",
-        figure = jinxin_figs[2]
-    ),
-	html.P('We can see in general the people who buy a house have bigger income changes than the people who rent a house'),
+# 	html.H4("How the income difference change differently in the two group of people(House own and House rental)"),
+# 	html.P('Below, we draw the bar graph of  income changes between year of people who buy their home and people who rent their home'),
+#     dcc.Graph(
+#         id = "jinxin3",
+#         figure = jinxin_figs[2]
+#     ),
+# 	html.P('We can see in general the people who buy a house have bigger income changes than the people who rent a house'),
 
     html.H4("Income By sex"),
         
