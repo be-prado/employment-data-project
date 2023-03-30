@@ -4,15 +4,7 @@ import pandas as pd
 # import matplotlib.pyplot as plt
 # import seaborn as sns
 import plotly.express as px
-from sklearn.metrics import r2_score
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import LabelEncoder
-from sklearn.preprocessing import scale
-from sklearn.linear_model import Lasso
-from sklearn.linear_model import LassoCV
-from sklearn.ensemble import RandomForestRegressor
-from sklearn import linear_model
-from sklearn.metrics import mean_squared_error
+
 
 
 def run_eda_analysis():
